@@ -9,14 +9,33 @@ kgramz::kgramz(int k_size):k(k_size){}
 
 //reading a line & Upadte the map
 void kgramz::readline(const std::string &line){
+    std::map<std::string, int> count;
+    std::map<std::string, std::map<char, int>> nextcount;
     for (size_t i = 0; i+k <=line.length(); ++i){
         std::string kg = line.substr(i, k);
-        freq[kg]++;
+        count[kg]++;
         if(i+k< line.size()){
             char nextc = line[i+k]; 
-            nextmap[kg][nextc]++;
+            nextcount[kg][nextc]++;
         }   
     }
+    //count to probability: General
+    int total = 0;
+    for (const auto &p : count) total += p.second;
+    for (const auto &p : count) {
+        freq[p.first] = (float)p.second / total;
+    }
+    //count to probability: NextChar: Conditional
+    for (const auto &p : nextcount){
+        const std::string &kg =p.first;
+        int sum= 0;
+        for (const auto &w : p.second) sum += w.second;
+        for (const auto &w : p.second) {
+            nextmap[kg][w.first] = (float)w.second / sum;
+    }
+    
+    }
+
 }
 
 //cehcking the file

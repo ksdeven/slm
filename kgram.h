@@ -9,8 +9,8 @@
 class kgramz{
     private:
     int k;                     //size of K-gram
-    std::map<std::string, int> freq;    //freq of each K-gram
-    std::map<std::string, std::map<char, int>> nextmap; //freq of each K-gram with next char
+    std::map<std::string, float> freq;    //freq of each K-gram
+    std::map<std::string, std::map<char, float>> nextmap; //freq of each K-gram with next char
 
 
     public:
