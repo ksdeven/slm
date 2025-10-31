@@ -1,1 +1,2 @@
-# slm
+Artifical Idiot 
+Author: Devendra Singh 
