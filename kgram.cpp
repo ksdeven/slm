@@ -5,22 +5,37 @@
 
 
 //constructor
-kgramz::kgramz(int k_size):k(k_size){}
+Kgramz::Kgramz(int k):k(k){}
 
 //reading a line & Upadte the map
-void kgramz::readline(const std::string &line){
+void Kgramz::readline(const std::string &line){
+    std::map<std::string, int> count;
+    std::map<std::string, std::map<char, int>> nextcount;
     for (size_t i = 0; i+k <=line.length(); ++i){
         std::string kg = line.substr(i, k);
-        freq[kg]++;
+        count[kg]++;
         if(i+k< line.size()){
             char nextc = line[i+k]; 
-            nextmap[kg][nextc]++;
+            nextcount[kg][nextc]++;
         }   
+    }
+    
+    //count to probability: General
+    int total = 0;
+    for (const auto &p : count) total += p.second;
+    for (const auto &p : count) freq[p.first] = (float)p.second / total;
+    
+    //count to probability: NextChar: Conditional
+    for(const auto &p : nextcount){
+        int sum= 0;
+        for (const auto &w : p.second) sum += w.second;
+        for (const auto &w : p.second) {
+            nextmap[p.first][w.first] = (float)w.second / sum;}
     }
 }
 
-//cehcking the file
-bool kgramz::checkfile(const std::string &filename){
+//checking the file
+bool Kgramz::checkfile(const std::string &filename){
     std::ifstream file(filename);
     
     if(!file.is_open()){
@@ -36,7 +51,7 @@ bool kgramz::checkfile(const std::string &filename){
 }
    
 
-void kgramz::get_nextmap() const {
+/*void Kgramz::get_nextmap() const {
 
     for(const auto &p : nextmap) {
         for (auto &w : p.second ){ 
@@ -45,10 +60,10 @@ void kgramz::get_nextmap() const {
     }
 }
 
-std::ostream& operator<<(std::ostream &out, const kgramz &kg) {
+std::ostream& operator<<(std::ostream &out, const Kgramz &kg) {
     for (const auto &p : kg.freq) {
         out << p.first << " : " << p.second << "\n";
     }
     return out;
 }
-
+*/
