@@ -30,7 +30,9 @@ std::string Generator::generate(int c_out) {
     //next char and prob from nextmap 
     while((int)out.size()<c_out){
         auto it = nextmap.find(current);
-        if (it == nextmap.end() || it->second.empty()) break;
+        if (it == nextmap.end() || it->second.empty()) {
+	current = words[startDist(gen)];
+	continue;}
         
         //store the freq and nextchar from nextmap
         std::vector<char> chars;
