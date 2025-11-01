@@ -17,9 +17,8 @@ int main(int argc, char* argv[]){
     int c_out= atoi(argv[3]);
     
     Kgramz kg(k);
-    
     kg.checkfile(filename);
-
+    
     Generator word(k, kg.getFreq(), kg.getnextmap());
     std::cout<<word.generate(c_out)<<std::endl;
 
