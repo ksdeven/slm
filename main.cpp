@@ -1,9 +1,8 @@
 #include "kgram.h"
+#include "generator.h"
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <map>
 
 
 int main(int argc, char* argv[]){
@@ -15,13 +14,14 @@ int main(int argc, char* argv[]){
 
     int k= atoi(argv[1]);
     std::string filename = argv[2]; 
-    //int c_out= atoi(argv[3]);
+    int c_out= atoi(argv[3]);
     
-    kgramz kg(k);
+    Kgramz kg(k);
     
-    if (!kg.checkfile(filename)) {return 1;}
+    kg.checkfile(filename);
 
-    std::cout << "K-gram frequencies:\n" << kg;
-    std::cout << "\nNext-character frequencies:\n";
-    kg.get_nextmap();
+    Generator word(k, kg.getFreq(), kg.getnextmap());
+    std::cout<<word.generate(c_out)<<std::endl;
+
+
 }

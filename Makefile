@@ -5,7 +5,7 @@ TARGET = slm
 CXX = g++
 CXXFLAGS = -Wall -std=c++17
 
-OBJS = main.o kgram.o
+OBJS = main.o kgram.o generator.o
 #Execuatble
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
