@@ -6,27 +6,28 @@
 #include <map>
 #include <iostream>
 
-class kgramz{
+class Kgramz{
     private:
     int k;                     //size of K-gram
-    std::map<std::string, int> freq;    //freq of each K-gram
-    std::map<std::string, std::map<char, int>> nextmap; //freq of each K-gram with next char
+    std::map<std::string, float> freq;    //freq of each K-gram
+    std::map<std::string, std::map<char, float>> nextmap; //freq of each K-gram with next char
 
 
     public:
-    //constructor: Size
-    kgramz(int k_size);
-
-    //read the line and update the map!
-    void readline(const std::string &line);
+    Kgramz(int k);
 
     //checking the file!
     bool checkfile(const std::string &filename); 
 
-    //freuqncy and next char of all K-gram 
-    void get_nextmap() const;
+    //read lines
+    void readline(const std::string &line); 
 
-    friend std::ostream& operator<<(std::ostream &out, const kgramz &kg);
+    //freuqncy and next char of all K-gram 
+    const std::map<std::string, float>& getFreq() const { return freq; }
+   
+    const std::map<std::string, std::map<char, float>>& getnextmap() const {return nextmap;}
+
+    //friend std::ostream& operator<<(std::ostream &out, const Kgramz &kg);
 };
 
 
